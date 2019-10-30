@@ -9,7 +9,6 @@
 #include <ros/ros.h>
 #include <std_msgs/Float64.h>
 #include <controller_manager/controller_manager.h>
-#include <boost/interprocess/smart_ptr/unique_ptr.hpp>
 
 /* The Yumi EGM and RWS interfaces */
 #include "yumi_hw/yumi_hw_rws.h"

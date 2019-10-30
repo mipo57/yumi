@@ -125,7 +125,7 @@ public:
     // Listen to the update event. This event is broadcast every simulation iteration.
     update_connection_ =
       gazebo::event::Events::ConnectWorldUpdateBegin
-      (boost::bind(&YumiHWsimPlugin::Update, this));
+      (std::bind(&YumiHWsimPlugin::Update, this));
 
     ROS_INFO_NAMED("yumi_hw", "Loaded yumi_hw.");
   }

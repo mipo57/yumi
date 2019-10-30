@@ -351,7 +351,7 @@ void YumiEGMInterface::setEGMParams(EGMData* egm_data)
 
 
 
-void YumiEGMInterface::configureEGM(boost::shared_ptr<EGMInterfaceDefault> egm_interface, bool position)
+void YumiEGMInterface::configureEGM(std::shared_ptr<EGMInterfaceDefault> egm_interface, bool position)
 {
     EGMInterfaceConfiguration configuration = egm_interface->getConfiguration();
 

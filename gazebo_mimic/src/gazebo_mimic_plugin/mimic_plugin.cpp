@@ -45,7 +45,7 @@ MimicPlugin::MimicPlugin()
 
 MimicPlugin::~MimicPlugin()
 {
-  event::Events::DisconnectWorldUpdateBegin(this->updateConnection);
+  // event::Events::DisconnectWorldUpdateBegin(this->updateConnection);
 
   kill_sim = true;
 }
@@ -75,7 +75,7 @@ void MimicPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
-      boost::bind(&MimicPlugin::UpdateChild, this));
+      std::bind(&MimicPlugin::UpdateChild, this));
   gzdbg << "Plugin model name: " << modelName << "\n";
 
   joint_ = model_->GetJoint(joint_name_);
@@ -85,7 +85,7 @@ void MimicPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
 void MimicPlugin::UpdateChild()
 {
 #if GAZEBO_MAJOR_VERSION >= 4
-    mimic_joint_->SetPosition(0, joint_->GetAngle(0).Radian()*multiplier_);
+    mimic_joint_->SetPosition(0, joint_->Position()*multiplier_);
 #else
     mimic_joint_->SetAngle(0, joint_->GetAngle(0).Radian()*multiplier_);
 #endif

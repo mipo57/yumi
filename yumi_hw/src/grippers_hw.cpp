@@ -45,12 +45,12 @@ class YumiGripperStateHandler : public industrial::message_handler::MessageHandl
     
     private:
 		float gripper_positions[2];
-		boost::mutex data_buffer_mutex;
+		std::mutex data_buffer_mutex;
 
     public:
 		bool getGripperStates(float &left, float &right) 
 		{ 
-			boost::mutex::scoped_lock lock(data_buffer_mutex);
+			std::mutex::scoped_lock lock(data_buffer_mutex);
 			left = gripper_positions[0];
 			right = gripper_positions[1];
 		}
@@ -64,7 +64,7 @@ class YumiGripperStateHandler : public industrial::message_handler::MessageHandl
 
 		bool internalCB(industrial::simple_message::SimpleMessage& in)
 		{
-			boost::mutex::scoped_lock lock(data_buffer_mutex);
+			std::mutex::scoped_lock lock(data_buffer_mutex);
 
 			bool ret;	    
 			if(in.getMessageType() != MSG_TYPE_GRIPPER_STATE) 
@@ -102,7 +102,7 @@ class YumiGripperStateHandler : public industrial::message_handler::MessageHandl
   */
 class YumiGripperStateInterface {
     private:
-		boost::thread RapidCommThread_;
+		std::thread RapidCommThread_;
 		
 		///industrial connection
 		industrial::tcp_client::TcpClient default_tcp_connection_; 
@@ -147,7 +147,7 @@ class YumiGripperStateInterface {
 		{
 			if(!stopComm_) 
 			{
-				boost::thread( boost::bind(&YumiGripperStateInterface::RapidCommThreadCallback, this) );
+				std::thread( std::bind(&YumiGripperStateInterface::RapidCommThreadCallback, this) );
 			}
 		}
 
@@ -311,7 +311,7 @@ class YumiGrippersHW : public hardware_interface::RobotHW
 		int port_s, port_c;
 		double js_rate;
 		int default_force;
-        boost::mutex data_buffer_mutex;
+        std::mutex data_buffer_mutex;
 		ros::Timer heartbeat_;
 
         hardware_interface::JointStateInterface grippers_state_interface;

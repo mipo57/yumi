@@ -12,6 +12,16 @@
   <xacro:include filename="$(find yumi_description)/urdf/Gazebo/gazebo.urdf.xacro"/>
 
 
+  <xacro:if value="${yumi_setup == 'default'}">
+    <xacro:property name="yumi_parent" value="world" />
+    <link name="world"/>
+    <joint name="world_joint" type="fixed">
+      <parent link="world"/>
+      <child link="yumi_base_link"/>
+      <origin xyz="0 0 0.1" rpy="0 0 0" />
+    </joint>
+  </xacro:if>
+
   <!--yumi-->
   <xacro:yumi name="yumi" hardware_interface="hardware_interface/$(arg arms_interface)" parent="${yumi_parent}" >
     <origin xyz="0 0 0.1" rpy="0 0 0" />
@@ -36,16 +46,6 @@
   </xacro:if>
 
 
-
-  <xacro:if value="${yumi_setup == 'default'}">
-    <xacro:property name="yumi_parent" value="world" />
-    <link name="world"/>
-    <joint name="world_joint" type="fixed">
-      <parent link="world"/>
-      <child link="yumi_base_link"/>
-      <origin xyz="0 0 0.1" rpy="0 0 0" />
-    </joint>
-  </xacro:if>
 
 
 </robot>
