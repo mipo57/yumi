@@ -1,5 +1,5 @@
 controller_list:
-  - name: yumi/joint_traj_vel_controller_l
+  - name: yumi/joint_traj_pos_controller_l
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
@@ -11,7 +11,7 @@ controller_list:
       - yumi_joint_5_l
       - yumi_joint_6_l
 
-  - name: yumi/joint_traj_vel_controller_r
+  - name: yumi/joint_traj_pos_controller_r
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
